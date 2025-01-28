@@ -3,7 +3,9 @@ module github.com/SimonMorphy/gorder/common
 go 1.23.4
 
 replace github.com/SimonMorphy/gorder/internal/common => ./
+
 require (
+	github.com/SimonMorphy/gorder/internal/common v0.0.0-00010101000000-000000000000
 	github.com/gin-gonic/gin v1.10.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/oapi-codegen/runtime v1.1.1
