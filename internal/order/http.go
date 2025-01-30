@@ -5,6 +5,10 @@ import "github.com/gin-gonic/gin"
 type HTTPServer struct {
 }
 
+func NewHTTPServer() *HTTPServer {
+	return &HTTPServer{}
+}
+
 func (H HTTPServer) PostCustomerCustomerIdOrders(c *gin.Context, customerId string) {
 
 }

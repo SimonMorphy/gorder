@@ -3,9 +3,11 @@ package ports
 import (
 	"context"
 	"github.com/SimonMorphy/gorder/common/genproto/stockpb"
+	"github.com/SimonMorphy/gorder/stock/app"
 )
 
 type GRPCServer struct {
+	Application app.Application
 }
 
 func (G GRPCServer) GetItems(ctx context.Context, request *stockpb.GetItemsRequest) (*stockpb.GetItemsResponse, error) {
@@ -18,6 +20,8 @@ func (G GRPCServer) CheckItemInStock(ctx context.Context, request *stockpb.Check
 	panic("implement me")
 }
 
-func NewGRPCServer() *GRPCServer {
-	return &GRPCServer{}
+func NewGRPCServer(application app.Application) *GRPCServer {
+	return &GRPCServer{
+		Application: application,
+	}
 }
