@@ -151,7 +151,7 @@ func NewPostCustomerCustomerIdOrdersRequestWithBody(server string, customerId st
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "customerId", runtime.ParamLocationPath, customerId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "customer_id", runtime.ParamLocationPath, customerId)
 	if err != nil {
 		return nil, err
 	}
@@ -187,14 +187,14 @@ func NewGetCustomerCustomerIdOrdersOrderIdRequest(server string, customerId stri
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "customerId", runtime.ParamLocationPath, customerId)
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "customer_id", runtime.ParamLocationPath, customerId)
 	if err != nil {
 		return nil, err
 	}
 
 	var pathParam1 string
 
-	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "orderId", runtime.ParamLocationPath, orderId)
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "order_id", runtime.ParamLocationPath, orderId)
 	if err != nil {
 		return nil, err
 	}

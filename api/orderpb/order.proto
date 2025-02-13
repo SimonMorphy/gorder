@@ -3,6 +3,7 @@ package orderpb;
 
 option go_package = "github.com/SimonMorphy/gorder/common/genproto/orderpb";
 import "google/protobuf/empty.proto";
+
 service OrderService{
   rpc CreateOrder(CreateOrderRequest) returns (google.protobuf.Empty);
   rpc GetOrder(GetOrderRequest) returns (Order);
@@ -21,7 +22,7 @@ message GetOrderRequest{
 
 message ItemWithQuantity {
   string Id = 1;
-  string Quantity = 2;
+  int32 Quantity = 2;
 }
 
 message Item{
@@ -36,5 +37,6 @@ message Order{
   string CustomerId = 2;
   string Status = 3;
   repeated Item items = 4;
+  string PaymentLink = 5;
 }
 

@@ -1,4 +1,13 @@
 fallback-grpc-addr: 127.0.0.1:3030
+dial-grpc-timeout: 10
+
+log:
+  level: info
+  format: json
+  timestamp_format: "2006-01-02 15:04:05"
+
+jaeger:
+  url: "http://82.156.217.74:14268/api/traces"
 
 order:
   service-name: order
@@ -11,3 +20,21 @@ stock:
   server-to-run: grpc
   http-addr: 127.0.0.1:8283
   grpc-addr: 127.0.0.1:5003
+
+payment:
+  service-name: payment
+  server-to-run: http
+  http-addr: 127.0.0.1:8284
+  grpc-addr: 127.0.0.1:5004
+
+rabbit-mq:
+  host: 82.156.217.74
+  port: 5672
+  user: guest
+  password: guest
+
+consul:
+  addr: 127.0.0.1:8500
+
+stripe-key: sk_test_51Qo78LBRPM1tZxlwjNYK68aRJNBoDzlF3ggVEDnLo0hCIVKMknCWuly2gshujB5cw49LE3abHcHx9w98lTGOBD9u00EDAYSbTB
+endpoint-stripe-secret:  whsec_43f5567bb5517c6778fb9e5ff729ff933e87407db38e66824f1513c920eb0460

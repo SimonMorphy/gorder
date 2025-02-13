@@ -2,11 +2,12 @@ package adapters
 
 import (
 	"context"
-	domain "github.com/SimonMorphy/gorder/order/domain/order"
-	"github.com/sirupsen/logrus"
 	"strconv"
 	"sync"
 	"time"
+
+	domain "github.com/SimonMorphy/gorder/order/domain/order"
+	"github.com/sirupsen/logrus"
 )
 
 type MemoryOrderRepository struct {
@@ -14,7 +15,7 @@ type MemoryOrderRepository struct {
 	store []*domain.Order
 }
 
-func (m MemoryOrderRepository) Create(_ context.Context, order *domain.Order) (*domain.Order, error) {
+func (m *MemoryOrderRepository) Create(_ context.Context, order *domain.Order) (*domain.Order, error) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 
@@ -33,7 +34,7 @@ func (m MemoryOrderRepository) Create(_ context.Context, order *domain.Order) (*
 	return newOrder, nil
 }
 
-func (m MemoryOrderRepository) Get(_ context.Context, id, customerId string) (*domain.Order, error) {
+func (m *MemoryOrderRepository) Get(_ context.Context, id, customerId string) (*domain.Order, error) {
 	m.lock.RLock()
 	defer m.lock.RUnlock()
 	for _, order := range m.store {
@@ -47,7 +48,7 @@ func (m MemoryOrderRepository) Get(_ context.Context, id, customerId string) (*d
 	}
 }
 
-func (m MemoryOrderRepository) Update(ctx context.Context, o *domain.Order, updateFn func(context.Context, *domain.Order) (*domain.Order, error)) error {
+func (m *MemoryOrderRepository) Update(ctx context.Context, o *domain.Order, updateFn func(context.Context, *domain.Order) (*domain.Order, error)) error {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 	found := false

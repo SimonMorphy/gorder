@@ -1,28 +1,31 @@
 openapi: 3.0.3
 info:
-  title: Order Service
-  description: Order Service
+  title: order service
+  description: order service
   version: 1.0.0
 servers:
-   - url: 'https://{hostname}/api'
-     variables:
-       hostname:
+  - url: 'https://{hostname}/api'
+    variables:
+      hostname:
         default: 127.0.0.1
+
 paths:
-  /customer/{customerId}/orders/{orderId}:
+  /customer/{customer_id}/orders/{order_id}:
     get:
-      description: "Get Order"
+      description: "get order"
       parameters:
         - in: path
-          name: customerId
+          name: customer_id
           schema:
             type: string
           required: true
+
         - in: path
-          name: orderId
+          name: order_id
           schema:
             type: string
           required: true
+
       responses:
         '200':
           description: todo
@@ -30,6 +33,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
+
         default:
           description: todo
           content:
@@ -37,22 +41,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-
-  /customer/{customerId}/orders:
+  /customer/{customer_id}/orders:
     post:
-      description: "Create Order"
+      description: "create order"
       parameters:
         - in: path
-          name: customerId
+          name: customer_id
           schema:
             type: string
           required: true
+
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateOrderRequest'
+
       responses:
         '200':
           description: todo
@@ -60,6 +65,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Order'
+
         default:
           description: todo
           content:
@@ -71,10 +77,16 @@ components:
   schemas:
     Order:
       type: object
+      required:
+        - id
+        - customer_id
+        - status
+        - items
+        - payment_link
       properties:
         id:
           type: string
-        customerId:
+        customer_id:
           type: string
         status:
           type: string
@@ -82,11 +94,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Item'
-        paymentLink:
+        payment_link:
           type: string
 
     Item:
       type: object
+      required:
+        - id
+        - name
+        - quantity
+        - price_id
       properties:
         id:
           type: string
@@ -95,21 +112,22 @@ components:
         quantity:
           type: integer
           format: int32
-        priceId:
+        price_id:
           type: string
+
     Error:
       type: object
       properties:
-       message:
-         type: string
+        message:
+          type: string
 
     CreateOrderRequest:
-      required:
-        - customerId
-        - items
       type: object
+      required:
+        - customer_id
+        - items
       properties:
-        customerId:
+        customer_id:
           type: string
         items:
           type: array
@@ -118,9 +136,30 @@ components:
 
     ItemWithQuantity:
       type: object
+      required:
+        - id
+        - quantity
       properties:
         id:
           type: string
         quantity:
           type: integer
           format: int32
+          minimum: 1
+
+    Response:
+      type: object
+      properties:
+        errno:
+          type: integer
+        message:
+          type: string
+        data:
+          type: object
+        trace_id:
+          type: string
+      required:
+        - errno
+        - message
+        - data
+        - trace_id
